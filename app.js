@@ -1,22 +1,21 @@
 function Libretto(){
   
+  this.array = [];
+
   this.renderVoto = function(voto){
-    var li=document.createElement('li');
-    var list=document.querySelector('#libretto');
+    var li = document.createElement('li');
+    var list = document.querySelector('#libretto');
     list.appendChild(li);
     li.innerHTML = voto.data + " " + voto.voto + " " + voto.materia;
     li.className = 'list-group-item';
   }
   
-  if(localStorage.getItem('db') !== undefined)
-    {
-      this.array = JSON.parse(localStorage.getItem('db'));
-      for ( var i=0; i<this.array.length; i++){
-        this.renderVoto(this.array[i]);
-      }
+  if ( localStorage.getItem('db'))
+  {
+    this.array = JSON.parse(localStorage.getItem('db'));
+    for ( var i=0; i<this.array.length; i++){
+      this.renderVoto(this.array[i]);
     }
-  else{
-     this.array = [];
   }
  
   
@@ -27,7 +26,7 @@ function Libretto(){
        data: data
      }
 
-     this.array.push(grade);
+    this.array.push(grade);
     this.renderVoto(grade);
     this.saveVoto(grade);
   }
@@ -48,7 +47,7 @@ button.addEventListener('click',function(e){
   var voto = document.querySelector('input[name=voto]').value;
   var data = document.querySelector('input[name=data]').value;
   
-  if (data === ""){
+  if (!!data){
     data = new Date();
   }
   
